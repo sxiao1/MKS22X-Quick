@@ -5,9 +5,16 @@ public class Quick{
  public static int quickselect(int []data, int k){
    return 1;
  }
- public static int qsh(int[] data, int k, int indexb, int indexe){
-   if(indexb == k || indexe == k){
-     return data[k];
+ public static int qsh(int[] data, int k, int indexlo, int indexhi){
+   if(indexlo == indexhi){
+     for(int i = 0; i < data.length; i++){
+       if(data[i+1] <= data[i]){
+         int temp = data[i+1];
+         data[i+1] = data[i];
+         data[i] = temp;
+       }
+     }
+     return data[indexlo];
    }
    else{
      int middle = data[data.length / 2];
@@ -17,24 +24,12 @@ public class Quick{
        int temp = data[0];
        data[0] = middle;
        data[data.length / 2] = temp;
-       lo = data[0];
      }
-     for(int i = 0; i < data.length;i++){
-         if(data[i] <= data[0]){
-           int temp2 = data[indexb];
-           data[indexb] = data[i];
-           data[i] = temp2;
-           qsh(data, k, indexb + 1, indexe);
-         }
-         else{
-           if(data[i] >= data[0]){
-             int temp1 = data[indexe];
-             data[indexe] = data[i];
-             data[i] = temp1;
-             qsh(data,k, indexb, indexe + 1);
-           }
-         }
-       }
+     if((hi > lo && hi < middle) || (hi < lo && hi > middle)){
+       int temp = data[0];
+       data[0] = hi;
+       data[data.length -1] = temp;
+     }
        return 1;
      }
    }
