@@ -6,15 +6,19 @@ public class Quick{
    return 1;
  }
  public static int qsh(int[] data, int k, int indexlo, int indexhi){
+   int index = 0;
    if(indexlo == indexhi){
      for(int i = 0; i < data.length; i++){
        if(data[i+1] <= data[i]){
          int temp = data[i+1];
          data[i+1] = data[i];
          data[i] = temp;
+         index ++;
        }
      }
-     return data[indexlo];
+   }
+   if(index == k){
+     return data[index];
    }
    else{
      int middle = data[data.length / 2];
@@ -30,7 +34,7 @@ public class Quick{
        data[0] = hi;
        data[data.length -1] = temp;
      }
-       return 1;
+     return 1;
      }
    }
  }
