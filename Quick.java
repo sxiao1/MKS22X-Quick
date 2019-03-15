@@ -9,72 +9,31 @@ public class Quick{
    }
    Random randgen = new Random();
    //int fstart = data[start];
-   int rand= data.length / 2;
+   int rand= start + randgen.nextInt((end - start) + 1);
    int num = data[rand]; //switching the random position to the index 0
    data[rand] = data[start];
    data[start] = num;
    rand = start;
-   start++;
-   /*int small = start + 1; //starting from index 1
-   int big = end; //last index to read
-   int index = small;
-   while(index <= big){
-     if(data[index]==data[start]){
-       int place = randgen.nextInt() %2;
-       if(place ==0){
-         int temp1 = data[index];
-         data[index] = data[big];
-         data[big] = temp1;
-         big--;
-       }
-       else{
-         small++;
-       }
-     }
-     else if(data[index] > data[start]){
-       int temp1 = data[big];
-       data[big] = data[index];
-       data[index] = temp;
-       big--;
-     }
-     else{
-       small++;
-     }
-   }
-   for(int x = start; x< end + 1; x++){
-     if(data[x] > data[num]){
-       fstart = data[x-1];
-       data[x-1] = data[num];
-       data[num] = fstart;
-       return x -1;
-     }
-   }
-   int temp1 = data[big];
-   data[big] = data[start];
-   data[start] = temp;
-   return big;*/
    while(start != end){
      int r = randgen.nextInt() % 2;
-     if(data[start] > num || data[start] == num && r ==0){
+     if(data[start] > num ){
        int temp = data[start];
        data[start] = data[end];
        data[end] = temp;
        end--;
      }
-     else{
-       start++;
-     }
-   }
-   if(data[start] < num){
+   else if(data[start] < num){
      data[rand] = data[start];
      data[start] = num;
      rand = start;
    }
    else{
-     data[rand] = data[start - 1];
-     data[start -1] = num;
-     rand = start -1;
+     start ++;
    }
+ }
+ int temp1 = data[end];
+ data[end] = data[start];
+ data[start] = temp1;
    return rand;
  }
  public static int quickselect(int []data, int k){
@@ -88,6 +47,7 @@ public class Quick{
      }
      else{
        big = x - 1;
+       x = partition(data, small, big);
      }
    }
    return data[x];
@@ -96,11 +56,28 @@ public class Quick{
    sortH(data, 0, data.length -1);
  }
  public static void sortH(int[] data, int small, int big){
+   if(big - small <= 20){
+     int ind = small + 1;
+     while(ind <= big){
+       int counter = ind;
+       while(counter > small && data[ind] < data[counter -1]){
+         counter--;
+       }
+       int n = data[ind];
+       for(int i = ind ; i>counter; i--){
+         data[i] = data[i-1];
+       }
+       data[counter] = n;
+         }
+         return;
+   }
+   else{
    if(small < big){
      int half = partition(data, small, big);
      sortH(data, small, half-1);
      sortH(data, half +1, big);
    }
+ }
  }
  public static String toString(int[] array){
    String newstr="";
