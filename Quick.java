@@ -15,7 +15,7 @@ public class Quick{
    data[start] = num;
    rand = start;
    while(start != end){
-     int r = randgen.nextInt() % 2;
+     //int r = randgen.nextInt() % 2;
      if(data[start] > num ){
        int temp = data[start];
        data[start] = data[end];
@@ -23,17 +23,18 @@ public class Quick{
        end--;
      }
    else if(data[start] < num){
-     data[rand] = data[start];
-     data[start] = num;
-     rand = start;
+     int temp = data[start];
+     data[start] = data[start -1];
+     data[start -1] = temp;
+     start++;
    }
    else{
      start ++;
    }
  }
  int temp1 = data[end];
- data[end] = data[start];
- data[start] = temp1;
+ data[end] = data[0];
+ data[0] = temp1;
    return rand;
  }
  public static int quickselect(int []data, int k){
@@ -73,9 +74,9 @@ public class Quick{
    }
    else{
    if(small < big){
-     int half = partition(data, small, big);
-     sortH(data, small, half-1);
-     sortH(data, half +1, big);
+     int split = partition(data, small, big);
+     sortH(data, small, split-1);
+     sortH(data, split +1, big);
    }
  }
  }
