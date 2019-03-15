@@ -51,5 +51,37 @@ public class Quick{
    }
    return data[x];
  }
+ public static void quicksort(int[] data){
+   sortH(data, 0, data.length -1);
+ }
+ public static void sortH(int[] data, int small, int big){
+   if(big - small <= 20){
+     int ind = small +1 ;
+     while(ind <= big){
+       int count = ind;
+       while(count > small && data[ind] < data[count -1]){
+         count --;
+       }
+       int temp = data[ind];
+       for(int i = data[ind]; i > count; i--){
+         data[i] = data[i-1];
+       }
+       data[count] = temp;
+       ind ++;
+     }
+   }
+   if(small <big){
+     int half = partition(data, small, big);
+     sortH(data, small, half-1);
+     sortH(data, half +1, big);
+   }
+ }
+ public static String toString(int[] array){
+   String newstr="";
+   for (int i=0;i<array.length;i++){
+    newstr+=array[i]+ ",";
+  }
+  return newstr;
+  }
 
  }
