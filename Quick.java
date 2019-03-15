@@ -36,38 +36,20 @@ public class Quick{
    return big;
  }
  public static int quickselect(int []data, int k){
-   return 1;
+   int small = 0;
+   int big = data.length - 1;
+   int x = partition(data, small, big);
+   while(x != k){
+     if(x < k){
+       small = x + 1;
+       x = partition(data, small, big);
+     }
+     else{
+       big = x - 1;
+       x = partition(data, small, big);
+     }
+   }
+   return data[x];
  }
- public static int qsh(int[] data, int k, int indexlo, int indexhi){
-   int index = 0;
-   if(indexlo == indexhi){
-     for(int i = 0; i < data.length; i++){
-       if(data[i+1] <= data[i]){
-         int temp = data[i+1];
-         data[i+1] = data[i];
-         data[i] = temp;
-         index ++;
-       }
-     }
-   }
-   if(index == k){
-     return data[index];
-   }
-   else{
-     int middle = data[data.length / 2];
-     int lo = data[0];
-     int hi = data[data.length - 1];
-     if((middle > lo && middle < hi) || (middle < lo && middle > hi)){
-       int temp = data[0];
-       data[0] = middle;
-       data[data.length / 2] = temp;
-     }
-     if((hi > lo && hi < middle) || (hi < lo && hi > middle)){
-       int temp = data[0];
-       data[0] = hi;
-       data[data.length -1] = temp;
-     }
-     return 1;
-     }
-   }
+
  }
