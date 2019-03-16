@@ -3,33 +3,33 @@ import java.io.*;
 public class Quick{
   public static int partition ( int [] data, int start, int end){
 	   Random randgen = new Random();
-	   int random = start + randgen.nextInt((end - start) + 1);
+	   int random = start + randgen.nextInt((end - start) + 1); //finding random int in the range between the start and the end
 	   switchPos(data,start,random);
-	   int lo=start+1;
-	   int high=end;
+	   int lo=start+1; //skipping index 0
+	   int high=end;//last index
 	   int index=lo;
 	   while (index <= high){
-      if(data[index] < data[start]){
+      if(data[index] < data[start]){ //when it is smaller than the pivot, then the number will switch positions with the start and be on the left of the array
         switchPos(data,index,lo);
         lo++;
         index++;
       }
-	    else if(data[index]>data[start]){
+	    else if(data[index]>data[start]){ //when it is bigger than the pivot, then the number will be switched with a number from the right
 		     switchPos(data,index,high);
 		     high--;
 	    }
 	    else{
-        if(data[index] == data[start]){
+        if(data[index] == data[start]){ // if it equals then the index just increase
           index++;
         }
 	    }
 	}
-	   switchPos(data,start,high);
+	   switchPos(data,start,high); //move back the original number to the spot it belongs to in the array
 	   return high;
 	}
 
   public static void switchPos(int[] data, int num1, int num2){
-	    int temp = data[num2];
+	    int temp = data[num2]; //storing a temp value to store and switch indexes
 	    data[num2]=data[num1];
 	    data[num1]=temp;
   }
@@ -39,36 +39,36 @@ public class Quick{
 	   int high= data.length-1;
 	   int x= partition(data,lo,high);
      while (x !=k){
-	    if (x < k){
+	    if (x < k){ // if it is smaller, then add it to the left side and the lo range increases by one and recurse through the rest of the array
         lo = x + 1;
 		    x = partition(data,lo,high);
 	    }
 	    else{
-		    high = x - 1;
+		    high = x - 1; //if it is larger, then the range of the high increases and then the whole thing recurses again
 		    x = partition(data,lo,high);
 	    }
 	   }
 	   return data[x];
   }
   public static void quicksort(int[] data){
-	   quickH(data,0,data.length-1);
+	   quickH(data,0,data.length-1); //calling the helper function
   }
   public static void quickH(int[] data,int lo,int high){
-    if (high-lo <=20){
+    if (high-lo <=20){ //base case
       sorting(data,lo,high);
       return;
     }
-    if(lo < high){
+    if(lo < high){ //if the high and low still don't meet then you continue to recurse through the helper function by splitting up the function in half with a pivot
       int pivot = partition(data, lo, high);
       quickH(data, lo, pivot - 1);
       quickH(data, pivot + 1, high);
     }
   }
   public static void sorting(int[] data,int lo,int high){
-	   int index = lo+1;
+	   int index = lo + 1;
 	    while(index <= high){
 	       int counter=index;
-	        while(counter > lo && data[index]<data[counter-1]){
+	        while(counter > lo && data[index]<data[counter-1]){ //counter decreases and shifts the numbers over by a certain amount
 		          counter--;
 	        }
           shifting(data, index, counter);
@@ -77,7 +77,7 @@ public class Quick{
   }
   public static void	shifting(int[] data, int oldNum,int newNum){
 	   int temp=data[oldNum];
-	    for (int i=oldNum;i>newNum;i--){
+	    for (int i=oldNum;i>newNum;i--){ //shifting the numbers in the array over one spot to the right
 	       data[i]=data[i-1];
 	    }
 	    data[newNum]=temp;
