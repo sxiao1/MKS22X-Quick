@@ -11,30 +11,31 @@ public class Quick{
    //int fstart = data[start];
    int rand= start + randgen.nextInt((end - start) + 1);
    int num = data[rand]; //switching the random position to the index 0
-   data[rand] = data[start];
-   data[start] = num;
-   rand = start;
-   while(start != end){
-     int r = randgen.nextInt() % 2;
-     if(data[start] > num ){
-       int temp = data[start];
-       data[start] = data[end];
-       data[end] = temp;
+   switchPos(data, start, rand);
+   start= start + 1;
+   int ind = start;
+   while(ind != end){
+     //int r = randgen.nextInt() % 2;
+     if(data[ind] > data[start] ){
+       switchPos(data, ind, end);
        end--;
      }
-   else if(data[start] < num){
-     data[rand] = data[start];
-     data[start] = num;
-     rand = start;
+   else if(data[ind] < data[start]){
+    switchPos(data, ind, start);
+    start ++;
+    ind ++;
    }
    else{
-     start ++;
+     ind ++;
    }
  }
- int temp1 = data[end];
- data[end] = data[start];
- data[start] = temp1;
+ switchPos(data, ind, end);
    return rand;
+ }
+ public static void switchPos(int[] data, int num1, int num2){
+   int temp = num1;
+   data[num1] = data[num2];
+   data[num2] = temp;
  }
  public static int quickselect(int []data, int k){
    int small = 0;
