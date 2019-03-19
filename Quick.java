@@ -55,7 +55,7 @@ public class Quick{
   }
   public static void quickH(int[] data,int lo,int high){
     if (high-lo <=20){ //base case
-      sorting(data,lo,high);
+      insertionSort(data,lo,high);
       return;
     }
     if(lo < high){ //if the high and low still don't meet then you continue to recurse through the helper function by splitting up the function in half with a pivot
@@ -64,7 +64,7 @@ public class Quick{
       quickH(data, pivot + 1, high);
     }
   }
-  public static void sorting(int[] data,int lo,int high){
+  public static void insertionSort(int[] data,int lo,int high){
 	   int index = lo + 1;
 	    while(index <= high){
 	       int counter=index;
